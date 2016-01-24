@@ -15,5 +15,8 @@ class Todo {
 		$this->name = $data->name;
 		$this->completed = false;
 	}
+	function toArray(){
+		return ['id' => $this->id, 'name' => $this->name, 'completed' => $this->completed];
+	}
 }
 
