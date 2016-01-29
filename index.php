@@ -7,29 +7,31 @@ header('Content-type: application/json');
 header('X-Powered-By: Redux Routing in PHP');
 // Bootstrap
 require_once './bootstrap.php';
+require_once './utils/validate.php';
 // Reducers
 require_once './reducers/HelloReducer.php';
 require_once './reducers/TodoReducer.php';
 
-TodoReducer::setDm($dm);
-
 function Router($action){
 	switch ($action['type']) {
-		case 'HELLO':
-			return HelloReducer::name($action['data']);
+		case 'HELLO_WORLD':
+			return helloWorld($action['data']);
 		case 'ADD_TODO':
-			return TodoReducer::addTodo($action['data']);
+			return addTodo($action['data']);
 		case 'LIST_TODO':
-			return TodoReducer::listTodo($action['data']);
+			return listTodo($action['data']);
 		case 'DELETE_TODO':
-			return TodoReducer::deleteTodo($action['data']);
+			return deleteTodo($action['data']);
 		case 'COMPLETE_TODO':
-			return TodoReducer::completeTodo($action['data']);
+			return completeTodo($action['data']);
 		default:
-			return $_POST;
+			return $action;
 	}
 }
 
-echo json_encode(Router($_POST));
-
+try {
+	echo json_encode(Router($_POST));
+} catch (Exception $e) {
+	echo json_encode(['message' => $e->getMessage()]);
+}
 ?>

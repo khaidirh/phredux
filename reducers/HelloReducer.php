@@ -1,10 +1,8 @@
 <?php
 
-class HelloReducer {
-	static function name($data){
-		$data = json_decode($data);
-		return ['message' => "Hello ".$data->name."!"];
-	}
+function helloWorld($data){
+	$data = json_decode($data);
+	$name = isset($data->name)? $data->name : "World";
+	return ['message' => "Hello ".$name. " !"];
 }
-
 ?>
