@@ -2,7 +2,7 @@
 
 function addTodo($data){
 	$data = json_decode($data);
-	$dm = initDM();
+	$dm = DocumentManager();
 	$validator = validate($data, ['name']);
 	if(count($validator) > 0) return ['error'=> $validator];
 
@@ -13,7 +13,7 @@ function addTodo($data){
 }
 
 function listTodo(){
-	$dm = initDM();
+	$dm = DocumentManager();
 	$todos = $dm->getRepository('Documents\Todo')->findAll();
 	$found = [];
 	foreach ($todos as $todo) {
@@ -27,7 +27,7 @@ function deleteTodo($data){
 	$validator = validate($data, ['id']);
 	if(count($validator) > 0) return ['error'=> $validator];
 
-	$dm = initDM();
+	$dm = DocumentManager();
 	$todo = $dm->getRepository('Documents\Todo')->findOneBy(['id'=> $data->id]);
 	$newTodo = new \Documents\Todo($data);
 	$dm->remove($todo);
