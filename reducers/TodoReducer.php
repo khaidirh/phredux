@@ -1,12 +1,12 @@
 <?php
 
-function addTodo($data){
-	$data = json_decode($data);
+function addTodo($action){
+	$action['data'] = json_decode($action['data']);
 	$dm = DocumentManager();
-	$validator = validate($data, ['name']);
+	$validator = validate($action['data'], ['name']);
 	if(count($validator) > 0) return ['error'=> $validator];
 
-	$newTodo = new \Documents\Todo($data);
+	$newTodo = new \Documents\Todo($action['data']);
 	$dm->persist($newTodo);
 	$dm->flush();
 	return $newTodo->toArray();
@@ -22,14 +22,14 @@ function listTodo(){
 	return $found;
 }
 
-function deleteTodo($data){
-	$data = json_decode($data);
-	$validator = validate($data, ['id']);
+function deleteTodo($action){
+	$action['data'] = json_decode($action['data']);
+	$validator = validate($action['data'], ['id']);
 	if(count($validator) > 0) return ['error'=> $validator];
 
 	$dm = DocumentManager();
-	$todo = $dm->getRepository('Documents\Todo')->findOneBy(['id'=> $data->id]);
-	$newTodo = new \Documents\Todo($data);
+	$todo = $dm->getRepository('Documents\Todo')->findOneBy(['id'=> $action['data']->id]);
+	$newTodo = new \Documents\Todo($action['data']);
 	$dm->remove($todo);
 	$dm->flush();
 	return ['status'=> 'ok'];

@@ -1,8 +1,8 @@
 <?php
 
-function helloWorld($data){
-	$data = json_decode($data);
-	$name = isset($data->name)? $data->name : "World";
+function helloWorld($action){
+	$action['data'] = json_decode($action['data']);
+	$name = isset($action['data']->name)? $action['data']->name : "World";
 	return ['message' => "Hello ".$name. " !"];
 }
 ?>

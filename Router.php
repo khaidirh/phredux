@@ -3,15 +3,15 @@
 function Router($action){
 	switch ($action['type']) {
 		case 'HELLO_WORLD':
-			return helloWorld($action['data']);
+			return helloWorld($action);
 		case 'ADD_TODO':
-			return addTodo($action['data']);
+			return addTodo($action);
 		case 'LIST_TODO':
-			return listTodo($action['data']);
+			return listTodo($action);
 		case 'DELETE_TODO':
-			return deleteTodo($action['data']);
+			return deleteTodo($action);
 		case 'COMPLETE_TODO':
-			return completeTodo($action['data']);
+			return completeTodo($action);
 		default:
 			return $action;
 	}
